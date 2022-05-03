@@ -4,6 +4,7 @@ import os
 from sys import platform
 import argparse
 import time
+import json
 
 try:
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -67,13 +68,16 @@ try:
             key = cv2.waitKey(15)
             if key == 27: break
 
-        file_name = imagePath.split('/')[-1].split('.')[0]
+        # file_name = imagePath.split('\\')[-1].split('.')[0]
+        file_name = os.path.basename(imagePath).split('.')[0]
         if args[0].save_image_dir != "":
             cv2.imwrite(args[0].save_image_dir+file_name+".jpg",datum.cvOutputData)
 
         if args[0].save_txt_dir != "":
-            with open(args[0].save_txt_dir+file_name+".txt") as f:
-                f.write(datum.cvOutputData)
+            res = datum.cvOutputData.tolist()
+            res = json.dumps(res)
+            with open(args[0].save_txt_dir+file_name+".txt",'w') as f:
+                json.dump(res.f)
 
     end = time.time()
     print("OpenPose demo successfully finished. Total time: " + str(end - start) + " seconds")
