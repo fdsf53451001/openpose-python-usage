@@ -10,7 +10,7 @@ try:
     dir_path = os.path.dirname(os.path.realpath(__file__))
     try:
         # Change these variables to point to the correct folder (Release/x64 etc.)
-        sys.path.append(dir_path + '/../bin/python/openpose/Release');
+        sys.path.append(dir_path + '/../bin/python/openpose/Release')
         os.environ['PATH']  = os.environ['PATH'] + ';' + dir_path + '/../x64/Release;' +  dir_path + '/../bin;'
         import pyopenpose as op
     except ImportError as e:
@@ -77,7 +77,7 @@ try:
             res = datum.poseKeypoints.tolist()
             res = json.dumps(res)
             with open(args[0].save_txt_dir+file_name+".txt",'w') as f:
-                json.dump(res.f)
+                json.dump(res,f)
 
     end = time.time()
     print("OpenPose demo successfully finished. Total time: " + str(end - start) + " seconds")
