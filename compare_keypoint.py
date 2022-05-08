@@ -21,6 +21,7 @@ def load_keypoint(file_name):
             if line.split(' ')[0] == yolo_person_index:
                 tmp.append(line.split(' ')[1:5])
         yolo = tmp
+        yolo.sort(key=lambda x:(x[0],x[1]))
 
     for person in op:
         inbox_count = 0

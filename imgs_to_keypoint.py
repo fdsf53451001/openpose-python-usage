@@ -74,7 +74,7 @@ try:
             cv2.imwrite(args[0].save_image_dir+file_name+".jpg",datum.cvOutputData)
 
         if args[0].save_txt_dir != "":
-            res = datum.cvOutputData.tolist()
+            res = datum.poseKeypoints.tolist()
             res = json.dumps(res)
             with open(args[0].save_txt_dir+file_name+".txt",'w') as f:
                 json.dump(res.f)
