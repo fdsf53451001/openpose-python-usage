@@ -57,14 +57,14 @@ try:
     # Process and display images
     for imagePath in imagePaths:
         datum = op.Datum()
-        imageToProcess = cv2.imread(imagePath)
+        imageToProcess = cv2.imread(imagePath)                  # load image
         datum.cvInputData = imageToProcess
-        opWrapper.emplaceAndPop(op.VectorDatum([datum]))
+        opWrapper.emplaceAndPop(op.VectorDatum([datum]))        # compute
 
-        print("Body keypoints: \n" + str(datum.poseKeypoints))
+        print("Body keypoints: \n" + str(datum.poseKeypoints))  # text result
 
         if not args[0].no_display:
-            cv2.imshow("OpenPose 1.7.0 - Tutorial Python API", datum.cvOutputData)
+            cv2.imshow("OpenPose 1.7.0 - Tutorial Python API", datum.cvOutputData)  # image result 
             key = cv2.waitKey(15)
             if key == 27: break
 
