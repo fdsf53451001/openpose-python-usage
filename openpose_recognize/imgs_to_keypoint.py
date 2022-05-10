@@ -1,3 +1,7 @@
+# in order to work, you need to install openpose (compile with python)
+# put this file in openpose/python directory
+# and make sure that the below link to pyd file is correct
+
 import sys
 import cv2
 import os
