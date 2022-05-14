@@ -110,5 +110,11 @@ def check_inbox(ox,oy,yx,yy,yw,yh):
         return False
     return True
 
+def run(openpose_txt_path_input,yolo_txt_path_input,saveback_txt_path_input):
+    openpose_txt_path = openpose_txt_path_input
+    yolo_txt_path = yolo_txt_path_input
+    saveback_txt_path = saveback_txt_path_input
+    check_dir(openpose_txt_path)
+
 if __name__ == '__main__':
     check_dir(openpose_txt_path)
