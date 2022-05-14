@@ -110,6 +110,7 @@ def check_inbox(ox,oy,yx,yy,yw,yh):
         return False
     return True
 
+# run this method to setup the path, and excute compare_keypoint
 def run(openpose_txt_path_input,yolo_txt_path_input,saveback_txt_path_input):
     openpose_txt_path = openpose_txt_path_input
     yolo_txt_path = yolo_txt_path_input
