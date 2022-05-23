@@ -9,6 +9,8 @@
 最後將檔案重新存回資料夾，及完成比對。
 
 ## 資料集格式
+資料集來自 https://github.com/mostafa-saad/deep-activity-rec
+
 ![圖片](https://user-images.githubusercontent.com/35889113/169795826-995cdb30-0267-4416-9dad-5956c022ecdd.png)
 
 ## 資料格式
