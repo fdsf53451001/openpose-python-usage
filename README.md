@@ -19,3 +19,17 @@ Openpose : json in txt file (格式可以參考：https://blog.csdn.net/qq_35649
 Yolo : txt file (yolo format, xywh)
 
 Openpose Result : json in txt file (the same format as origin one)
+
+## 執行
+* YOLO辨識
+
+（1）將yolo_recognize/detect.py & yolo_recognize/yolo_detect_dataset.py 放到YOLO資料夾中
+
+（2）修改路徑
+
+![圖片](https://user-images.githubusercontent.com/35889113/169798993-c959d38c-ed18-43f8-9644-e2bb6ca830b9.png)
+
+（3）執行
+```
+python detect_dataset.py
+```
