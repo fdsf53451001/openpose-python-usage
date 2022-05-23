@@ -8,6 +8,9 @@
 
 最後將檔案重新存回資料夾，及完成比對。
 
+## 資料集格式
+![圖片](https://user-images.githubusercontent.com/35889113/169795826-995cdb30-0267-4416-9dad-5956c022ecdd.png)
+
 ## 資料格式
 Openpose : json in txt file (格式可以參考：https://blog.csdn.net/qq_35649669/article/details/97786303)
 
