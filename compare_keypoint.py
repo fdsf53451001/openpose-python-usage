@@ -33,11 +33,11 @@ class Compare_keypoint:
     # for each file, load openpose and yolo file
     def load_keypoint(self,file_name):
         print(file_name,end=' ')
-        with open(self.openpose_txt_path+file_name,'r') as f:
+        with open(os.path.join(self.openpose_txt_path,file_name),'r') as f:
             op = json.load(f)
             op = json.loads(op)
         
-        with open(self.yolo_txt_path+file_name,'r') as f:
+        with open(os.path.join(self.yolo_txt_path,file_name),'r') as f:
             yolo = f.readlines()
             tmp = []
             for line in yolo:
@@ -63,7 +63,7 @@ class Compare_keypoint:
 
         # save back to json file
         saveback_json = json.dumps(saveback_list)
-        with open(self.saveback_txt_path+file_name,'w') as f:
+        with open(os.path.join(self.saveback_txt_path,file_name),'w') as f:
             json.dump(saveback_json,f)
 
     # compare two file of openpose and yolo (the same image)         
@@ -112,17 +112,57 @@ class Compare_keypoint:
             return False
         return True
 
-    # run this method to setup the path, and excute compare_keypoint
-    def run(self,openpose_txt_path,yolo_txt_path,saveback_txt_path):
-        self.openpose_txt_path = openpose_txt_path
-        self.yolo_txt_path = yolo_txt_path
-        self.saveback_txt_path = saveback_txt_path
-        self.check_dir(openpose_txt_path)
-
     # run this file with default path
     def run(self):
         self.check_dir(self.openpose_txt_path)
 
-if __name__ == '__main__':
-    ck = Compare_keypoint()
-    ck.run()
+    # run this method to setup the path, and excute compare_keypoint
+    def run(self,openpose_txt_path,yolo_txt_path,saveback_txt_path):
+        self.openpose_txt_path = openpose_txt_path
+        print(self.openpose_txt_path)
+        self.yolo_txt_path = yolo_txt_path
+        self.saveback_txt_path = saveback_txt_path
+        self.check_dir(openpose_txt_path)
+
+    
+
+def walk_dir(dataset_path):
+    res = {}
+    for no in os.listdir(dataset_path):    # dataset/run
+        datas = []
+        for action_series in os.listdir(dataset_path+no): # dataset/run/1
+            if os.path.isfile(os.path.join(dataset_path,no,action_series)):
+                continue
+            # data = []
+            # for action_photos in os.listdir(dataset_path+no+'/'+action_series): # dataset/run/1/1-10
+            #     data.append(dataset_path+no+'/'+action_series+'/'+action_photos)
+            datas.append(action_series)
+        res[no] = datas
+    return res
+
+def run_compare(res,yolo_dataset_path,openpose_dataset_path,save_dataset_path):
+    file_missing_count = 0
+    for no in res:
+        for action_series in res[no]:
+            try:
+                os.makedirs(os.path.join(save_dataset_path,no,action_series), exist_ok=True)
+
+                ck = Compare_keypoint()
+                ck.run( openpose_txt_path=os.path.join(openpose_dataset_path,no,action_series),
+                        yolo_txt_path=os.path.join(yolo_dataset_path,no,action_series),
+                        saveback_txt_path=os.path.join(save_dataset_path,no,action_series)
+                        )
+            except FileNotFoundError:
+                file_missing_count+=1
+
+    return file_missing_count
+
+if __name__ == '__main__':  
+    yolo_dataset_path = 'F:\\Github\\LSTM-action-detection\\dataset_yolo\\'
+    openpose_dataset_path = 'F:\\Github\\LSTM-action-detection\\dataset_op\\'
+    save_dataset_path = 'F:\\Github\\LSTM-action-detection\\dataset_filiter\\'
+    res = walk_dir(yolo_dataset_path)
+    file_missing_count = run_compare(res,yolo_dataset_path,openpose_dataset_path,save_dataset_path)
+
+    print('finish!','missing count :',file_missing_count)
+    
